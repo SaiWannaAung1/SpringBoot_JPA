@@ -2,9 +2,13 @@ package com.example.demo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
+import com.example.demo.dao.CourseJpaRepository;
+import com.example.demo.entity.Course;
+import com.example.demo.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +32,8 @@ public class UserController {
 	
 	@Autowired
 	UserService userService;
+	@Autowired
+	CourseJpaRepository courseRepository;
 	
 	@GetMapping("/list")
 	public String users(Model model)
@@ -37,6 +43,14 @@ public class UserController {
 		model.addAttribute("users", users);
 		System.out.println("Controller User list");
 		this.userService.updateName("SWNA",1L);
+		List<Course> courses = this.courseRepository.findAll();
+		Course course = courses.get(0);
+		Set<User> courseUsers = course.getUsers();
+		for(User user : courseUsers)
+		{
+			System.out.println("Course "+ course.getName() + " Student "+user.getName());
+		}
+
 		return "user/users";
 	}
 	@GetMapping("/new")

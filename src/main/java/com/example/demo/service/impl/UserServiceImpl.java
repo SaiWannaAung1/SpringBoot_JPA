@@ -6,6 +6,7 @@ import java.util.List;
 import com.example.demo.dto.UserSearchDto;
 import com.example.demo.service.specification.UserSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.UserJpaRespository;
@@ -22,7 +23,8 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public List<UserDto> getAllUser() {
-		List<User> users = this.userJpaRepsitory.findAll();
+		System.out.println("Get All user sort by email");
+		List<User> users = this.userJpaRepsitory.findAll(Sort.by("email"));
 		
 		List<UserDto> userDtos = new ArrayList<UserDto>();
 		for(User user : users)
@@ -35,7 +37,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public void save(UserDto dto) {
-//		/
+
 		User user = dto.getEntity();
 		this.userJpaRepsitory.save(user);
 	}
