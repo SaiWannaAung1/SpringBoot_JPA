@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+ <html xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org">
+   <head>
+     <title>Spring Boot App</title>
+   </head>
+   <body>
+     <h1>Welcome to...</h1>
+     <!-- 
+     
+     <img th:src="@{/images/java.png}"/>
+      -->
+      <table border="1">
+      	  <thead>
+      	  	<tr>
+      	  		<th>Name </th>
+      	  		<th>Email >></th>
+      	  	</tr>
+      	  </thead>
+	      <tr th:each="user: ${users}">
+	     	<td> <span th:text="${user.name}"></span></td>
+	     	<td> <span th:text="${user.email}"></span>
+	     	 <span class="validationError"
+              th:if="${#fields.hasErrors('email')}"
+              th:errors="*{email}">Email have error</span>
+	     	</td>
+	      </tr>
+      </table>
+     
+</body>
+</html>
